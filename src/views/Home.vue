@@ -12,7 +12,7 @@ const TodoList = ref([
     "ToDo: 2",
     "ToDo: 3",
 ]);
-const index = ref(-1);
+const Index = ref(-1);
 
 function commit(index) {
     console.log("[log]" + index, + inputVal.value);
@@ -33,12 +33,13 @@ function commit(index) {
         }
         TodoList.value.splice(index, 1, inputVal.value);
         inputVal.value = "";
+        Index.value = -1;
     };
 }
 
 function editElem(elementId) {
     inputVal.value = TodoList.value[elementId];
-    index.value = elementId;
+    Index.value = elementId;
 }
 
 function deleteElem(elementId) {
@@ -50,7 +51,7 @@ function deleteElem(elementId) {
     <div class="continer">
         <form action="#">
             <el-input class="input" v-model="inputVal" placeholder="请输入" name="log" />
-            <el-button class="input" @click="commit(index)" type="success" :icon="Check" circle />
+            <el-button class="input" @click="commit(Index)" type="success" :icon="Check" circle />
         </form>
         <div class="todo-content" v-for="item in TodoList">
             <ul>
