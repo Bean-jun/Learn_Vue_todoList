@@ -1,5 +1,10 @@
 <script setup>
 import { ref } from 'vue';
+import {
+    Check,
+    Delete,
+    Edit,
+} from '@element-plus/icons-vue'
 
 const inputVal = ref("");
 const TodoList = ref([
@@ -21,7 +26,7 @@ function commit(index) {
         inputVal.value = "";
     };
     // 用户修改下方数据时的操作
-    if (index != -1){
+    if (index != -1) {
         if (inputVal.value === "") {
             alert("请输入内容后提交");
             return
@@ -43,15 +48,17 @@ function deleteElem(elementId) {
 
 <template>
     <div class="continer">
-        <form action="#" method="post" class="input">
-            <input v-model="inputVal" type="text" name="log" id="log">
-            <input type="button" value="提交" @click="commit(index)">
+        <form action="#">
+            <el-input class="input" v-model="inputVal" placeholder="请输入" name="log" />
+            <el-button class="input" @click="commit(index)" type="success" :icon="Check" circle />
         </form>
         <div class="todo-content" v-for="item in TodoList">
             <ul>
                 <li>{{ item }}</li>
-                <li @click="editElem(TodoList.indexOf(item))">修改</li>
-                <li @click="deleteElem(TodoList.indexOf(item))">删除</li>
+                <el-button @click="editElem(TodoList.indexOf(item))" type="primary" :icon="Edit" />
+                <li>
+                    <el-button @click="deleteElem(TodoList.indexOf(item))" type="primary" :icon="Delete" />
+                </li>
             </ul>
         </div>
     </div>
@@ -64,6 +71,11 @@ function deleteElem(elementId) {
     display: flex;
     flex-direction: column;
     align-items: center
+}
+
+.continer .input {
+    display: inline;
+    margin: 0px 10px;
 }
 
 .continer ul {
